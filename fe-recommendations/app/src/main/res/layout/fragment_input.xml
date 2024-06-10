@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Dropdown for Platform ID -->
+        <Spinner
+            android:id="@+id/platform_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:prompt="@string/platform_prompt" />
+
+        <!-- RatingBar for Topik Kursus -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Topik Kursus" />
+        <RatingBar
+            android:id="@+id/topik_kursus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5" />
+
+        <!-- RatingBar for Durasi Kursus -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Durasi Kursus" />
+        <RatingBar
+            android:id="@+id/durasi_kursus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5" />
+
+        <!-- RatingBar for Biaya Kursus -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Biaya Kursus" />
+        <RatingBar
+            android:id="@+id/biaya_kursus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5" />
+
+        <!-- RatingBar for for Level Kursus -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Level Kursus" />
+        <RatingBar
+            android:id="@+id/level_kursus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5" />
+
+        <!-- RatingBar for Fleksibilitas Waktu -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fleksibilitas Waktu" />
+        <RatingBar
+            android:id="@+id/fleksibilitas_waktu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5" />
+
+        <!-- RatingBar for Bahasa Pengantar -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bahasa Pengantar" />
+        <RatingBar
+            android:id="@+id/bahasa_pengantar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5" />
+
+        <!-- RatingBar for Metode Pembelajaran -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Metode Pembelajaran" />
+        <RatingBar
+            android:id="@+id/metode_pembelajaran"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5" />
+
+        <!-- RatingBar for Kualifikasi dan Reputasi Instruktur -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kualifikasi dan Reputasi Instruktur" />
+        <RatingBar
+            android:id="@+id/kualifikasi_instruktur"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5" />
+
+        <!-- RatingBar for Kualitas Materi Kursus -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kualitas Materi Kursus" />
+        <RatingBar
+            android:id="@+id/kualitas_materi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5" />
+
+        <!-- RatingBar for Dukungan dan Interaksi -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dukungan dan Interaksi" />
+        <RatingBar
+            android:id="@+id/dukungan_interaksi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5" />
+
+        <!-- RatingBar for Overall -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Overall" />
+        <RatingBar
+            android:id="@+id/overall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:numStars="5"
+            android:stepSize="1"
+            android:max="5" />
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Submit Rating" />
+    </LinearLayout>
+</ScrollView>

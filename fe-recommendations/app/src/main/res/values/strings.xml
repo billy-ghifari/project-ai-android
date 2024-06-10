@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">fe-recommendations</string>
+    <string name="platform_prompt" />
 </resources>
