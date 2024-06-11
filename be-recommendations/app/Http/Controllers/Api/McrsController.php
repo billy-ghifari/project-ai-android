@@ -79,8 +79,7 @@ class McrsController extends Controller
         }
 
         return response()->json([
-            'recommendations' => $platforms_recommendations,
-            'platform' => $platforms,
+            'recommendations' => $platforms_recommendations
         ], 200);
     }
 

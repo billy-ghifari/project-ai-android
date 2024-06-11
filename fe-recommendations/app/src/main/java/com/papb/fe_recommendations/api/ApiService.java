@@ -1,6 +1,7 @@
 package com.papb.fe_recommendations.api;
 
 import com.papb.fe_recommendations.api.models.DataResponse;
+import com.papb.fe_recommendations.api.models.PlatformResponse;
 import com.papb.fe_recommendations.api.models.RatingModel;
 import com.papb.fe_recommendations.api.models.RatingResponse;
 import com.papb.fe_recommendations.api.models.UserModel;
@@ -18,6 +19,10 @@ public interface ApiService {
     @GET("get-data")
     Call<DataResponse> getData(@Header("Authorization") String token);
 
+    @GET("platforms")
+    Call<PlatformResponse> getPlatforms(@Header("Authorization") String token);
+
     @POST("add-rating")
     Call<RatingResponse> addRating(@Header("Authorization") String token, @Body RatingModel ratingModel);
 }
+

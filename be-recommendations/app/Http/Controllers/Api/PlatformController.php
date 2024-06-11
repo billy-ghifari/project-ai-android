@@ -18,8 +18,10 @@ class PlatformController extends Controller
         if ($platforms->isEmpty()) {
             return response()->json(['message' => 'Tidak ada platform yang ditemukan.'], 404);
         }
-        $platforms->makeHidden('id');
-        return response()->json($platforms);
+
+        return response()->json([
+            'list_platform' => $platforms
+        ], 200);
     }
 
     /**

@@ -1,7 +1,9 @@
 package com.papb.fe_recommendations.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,15 +26,19 @@ import com.papb.fe_recommendations.api.ApiClient;
 import com.papb.fe_recommendations.api.ApiService;
 import com.papb.fe_recommendations.api.models.DataResponse;
 import com.papb.fe_recommendations.api.models.PlatformModel;
+import com.papb.fe_recommendations.api.models.PlatformResponse;
 import com.papb.fe_recommendations.api.models.RatingModel;
 import com.papb.fe_recommendations.api.models.RatingResponse;
 import com.papb.fe_recommendations.api.models.RecommendationModel;
 import com.papb.fe_recommendations.api.models.UserModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.papb.fe_recommendations.utils.SharedPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +46,8 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
+    private static Context context;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +98,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<UserModel> call, @NonNull Response<UserModel> response) {
                         if (response.isSuccessful() && response.body() != null) {
-                            String token = "Bearer " + response.body().getBearer_token();
-                            // Save token using SharedPreferences or any other method
-                            Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                            String token = response.body().getToken_type() + " " + response.body().getAccess_token();
+                            Log.d("LoginFragment", "Received token: " + token);
+                            try {
+                                SharedPrefManager.getInstance(getContext()).saveBearerToken(token);
+                                String token2 = SharedPrefManager.getInstance(getContext()).getBearerToken();
+                                Log.d("LoginFragment", "Stored token: " + token2);
+                                Toast.makeText(getContext(), "Login Successful: " + token2, Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                Log.e("LoginFragment", "Error saving token: " + e.getMessage());
+                                Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+
                         } else {
                             Toast.makeText(getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
                         }
@@ -100,7 +117,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(@NonNull Call<UserModel> call, @NonNull Throwable t) {
-                        Toast.makeText(getContext(), "Login Error", Toast.LENGTH_SHORT).show();
+                        Log.e("LoginFragment", "Login Error: " + t.getMessage());
+                        Toast.makeText(getContext(), "Login Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             });
@@ -120,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
             apiService = ApiClient.getClient().create(ApiService.class);
-            String $bearer = "testing";
-            String token = "Bearer " + $bearer;// Retrieve token from SharedPreferences or any other method
+            String token =  SharedPrefManager.getInstance(getContext()).getBearerToken();// Retrieve token from SharedPreferences or any other method
+            Toast.makeText(getContext(), "token" + token, Toast.LENGTH_SHORT).show();
 
                     apiService.getData(token).enqueue(new Callback<DataResponse>() {
                         @Override
@@ -192,54 +210,59 @@ public class MainActivity extends AppCompatActivity {
                 ratingModel.setKualitas_materi_kursus(Integer.parseInt(String.valueOf(kualitasMateri.getRating())));
                 ratingModel.setDukungan_dan_interaksi(Integer.parseInt(String.valueOf(dukunganInteraksi.getRating())));
                 ratingModel.setOverall(Integer.parseInt(String.valueOf(overall.getRating())));
-                String bearer = "dada";
-                String token = "Bearer " + bearer;// Retrieve token from SharedPreferences or any other method
 
-                        apiService.addRating(token, ratingModel).enqueue(new Callback<RatingResponse>() {
-                            @Override
-                            public void onResponse(@NonNull Call<RatingResponse> call, @NonNull Response<RatingResponse> response) {
-                                if (response.isSuccessful()) {
-                                    Toast.makeText(getContext(), "Rating Submitted Successfully", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getContext(), "Failed to Submit Rating", Toast.LENGTH_SHORT).show();
-                                }
-                            }
+                String token = SharedPrefManager.getInstance(getContext()).getBearerToken(); // Retrieve token from SharedPreferences or any other method
 
-                            @Override
-                            public void onFailure(@NonNull Call<RatingResponse> call, @NonNull Throwable t) {
-                                Toast.makeText(getContext(), "Error Submitting Rating", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                apiService.addRating(token, ratingModel).enqueue(new Callback<RatingResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<RatingResponse> call, @NonNull Response<RatingResponse> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(getContext(), "Rating Submitted Successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Failed to Submit Rating", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<RatingResponse> call, @NonNull Throwable t) {
+                        Toast.makeText(getContext(), "Error Submitting Rating", Toast.LENGTH_SHORT).show();
+                    }
+                });
             });
 
             return view;
         }
 
         private void fetchPlatforms() {
-            String bearer = "dada";
-            String token = "Bearer " + bearer;// Retrieve token from SharedPreferences or any other method
+            String token = SharedPrefManager.getInstance(getContext()).getBearerToken(); // Retrieve token from SharedPreferences
 
-            apiService.getData(token).enqueue(new Callback<DataResponse>() {
-                        @Override
-                        public void onResponse(@NonNull Call<DataResponse> call, @NonNull Response<DataResponse> response) {
-                            if (response.isSuccessful() && response.body() != null) {
-                                platformList = response.body().getPlatform();
-                                for (PlatformModel platform : platformList) {
-                                    platformNames.add(platform.getPlatform_name());
-                                }
-                                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, platformNames);
-                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                platformId.setAdapter(adapter);
-                            } else {
-                                Toast.makeText(getContext(), "Failed to fetch platforms", Toast.LENGTH_SHORT).show();
-                            }
+            apiService.getPlatforms(token).enqueue(new Callback<PlatformResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<PlatformResponse> call, @NonNull Response<PlatformResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        platformList = response.body().getList_platform();
+                        for (PlatformModel platform : platformList) {
+                            platformNames.add(platform.getPlatform_name());
                         }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, platformNames);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        platformId.setAdapter(adapter);
+                        Log.d("fetchPlatforms", "Platforms fetched successfully.");
+                    } else {
+                        String errorMessage = "Failed to fetch platforms: " + response.message();
+                        Log.e("fetchPlatforms", errorMessage);
+                        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-                        @Override
-                        public void onFailure(@NonNull Call<DataResponse> call, @NonNull Throwable t) {
-                            Toast.makeText(getContext(), "Error fetching platforms", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                @Override
+                public void onFailure(@NonNull Call<PlatformResponse> call, @NonNull Throwable t) {
+                    String errorMessage = "Error fetching platforms: " + t.getMessage();
+                    Log.e("fetchPlatforms", errorMessage);
+                    Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+
     }
 }
