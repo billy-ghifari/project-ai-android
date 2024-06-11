@@ -141,23 +141,23 @@ public class MainActivity extends AppCompatActivity {
             String token =  SharedPrefManager.getInstance(getContext()).getBearerToken();// Retrieve token from SharedPreferences or any other method
             Toast.makeText(getContext(), "token" + token, Toast.LENGTH_SHORT).show();
 
-                    apiService.getData(token).enqueue(new Callback<DataResponse>() {
-                        @Override
-                        public void onResponse(@NonNull Call<DataResponse> call, @NonNull Response<DataResponse> response) {
-                            if (response.isSuccessful() && response.body() != null) {
-                                List<RecommendationModel> recommendations = response.body().getRecommendations();
-                                RecommendationAdapter adapter = new RecommendationAdapter(recommendations);
-                                recyclerView.setAdapter(adapter);
-                            } else {
-                                Toast.makeText(getContext(), "Failed to retrieve data", Toast.LENGTH_SHORT).show();
-                            }
-                        }
+            apiService.getData(token).enqueue(new Callback<DataResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<DataResponse> call, @NonNull Response<DataResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        List<RecommendationModel> recommendations = response.body().getRecommendations();
+                        RecommendationAdapter adapter = new RecommendationAdapter(recommendations);
+                        recyclerView.setAdapter(adapter);
+                    } else {
+                        Toast.makeText(getContext(), "Failed to retrieve data", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-                        @Override
-                        public void onFailure(@NonNull Call<DataResponse> call, @NonNull Throwable t) {
-                            Toast.makeText(getContext(), "Error retrieving data", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                @Override
+                public void onFailure(@NonNull Call<DataResponse> call, @NonNull Throwable t) {
+                    Toast.makeText(getContext(), "Error retrieving data", Toast.LENGTH_SHORT).show();
+                }
+            });
 
             return view;
         }
