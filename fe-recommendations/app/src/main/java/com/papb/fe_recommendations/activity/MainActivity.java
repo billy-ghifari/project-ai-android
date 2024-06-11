@@ -199,17 +199,17 @@ public class MainActivity extends AppCompatActivity {
                 if (selectedPosition != -1 && !platformList.isEmpty()) {
                     ratingModel.setPlatform_id(platformList.get(selectedPosition).getUuid());
                 }
-                ratingModel.setTopik_kursus(Integer.parseInt(String.valueOf(topikKursus.getRating())));
-                ratingModel.setDurasi_kursus(Integer.parseInt(String.valueOf(durasiKursus.getRating())));
-                ratingModel.setBiaya_kursus(Integer.parseInt(String.valueOf(biayaKursus.getRating())));
-                ratingModel.setLevel_kursus(Integer.parseInt(String.valueOf(levelKursus.getRating())));
-                ratingModel.setFleksibilitas_waktu(Integer.parseInt(String.valueOf(fleksibilitasWaktu.getRating())));
-                ratingModel.setBahasa_pengantar(Integer.parseInt(String.valueOf(bahasaPengantar.getRating())));
-                ratingModel.setMetode_pembelajaran(Integer.parseInt(String.valueOf(metodePembelajaran.getRating())));
-                ratingModel.setKualifikasi_dan_reputasi_instruktur(Integer.parseInt(String.valueOf(kualifikasiInstruktur.getRating())));
-                ratingModel.setKualitas_materi_kursus(Integer.parseInt(String.valueOf(kualitasMateri.getRating())));
-                ratingModel.setDukungan_dan_interaksi(Integer.parseInt(String.valueOf(dukunganInteraksi.getRating())));
-                ratingModel.setOverall(Integer.parseInt(String.valueOf(overall.getRating())));
+                ratingModel.setTopik_kursus(Math.round(topikKursus.getRating()));
+                ratingModel.setDurasi_kursus(Math.round(durasiKursus.getRating()));
+                ratingModel.setBiaya_kursus(Math.round(biayaKursus.getRating()));
+                ratingModel.setLevel_kursus(Math.round(levelKursus.getRating()));
+                ratingModel.setFleksibilitas_waktu(Math.round(fleksibilitasWaktu.getRating()));
+                ratingModel.setBahasa_pengantar(Math.round(bahasaPengantar.getRating()));
+                ratingModel.setMetode_pembelajaran(Math.round(metodePembelajaran.getRating()));
+                ratingModel.setKualifikasi_dan_reputasi_instruktur(Math.round(kualifikasiInstruktur.getRating()));
+                ratingModel.setKualitas_materi_kursus(Math.round(kualitasMateri.getRating()));
+                ratingModel.setDukungan_dan_interaksi(Math.round(dukunganInteraksi.getRating()));
+                ratingModel.setOverall(Math.round(overall.getRating()));
 
                 String token = SharedPrefManager.getInstance(getContext()).getBearerToken(); // Retrieve token from SharedPreferences or any other method
 
