@@ -8,6 +8,7 @@ Selamat datang di repositori GitHub Project AI Android! Ini adalah proyek aplika
 - [Struktur Proyek](#struktur-proyek)
 - [Kontribusi](#kontribusi)
 - [Lisensi](#lisensi)
+- [Social Media](#social-media)
 
 ## Fitur
 
