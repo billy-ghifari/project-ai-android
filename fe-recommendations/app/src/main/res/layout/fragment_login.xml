@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
         android:layout_marginTop="16dp"
-        tools:ignore="HardcodedText"
-        android:text="Login" />
+        android:background="#2196F3"
+        android:text="Login"
+        tools:ignore="HardcodedText" />
 </RelativeLayout>
